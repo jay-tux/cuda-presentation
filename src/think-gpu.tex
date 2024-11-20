@@ -1,0 +1,33 @@
+\section{Thinking in GPUs}\label{sec:thinking-in-gpus}
+\mkAgenda
+
+\begin{frame}{Thinking in GPUs}
+    \center
+    \begin{itemize}
+        \item<1-> Threads \textrightarrow Warps \textrightarrow SMs \textrightarrow GPU
+    \end{itemize}
+    \onslide<2->{
+        \begin{block}{Branches}
+            \begin{itemize}
+                \item Warps use SIMT \textrightarrow all threads run same instruction
+            \end{itemize}
+        \end{block}
+    }
+    \onslide<3->{
+        \begin{block}{Memory}
+            \begin{itemize}
+                \item Unified memory: \CUDA{cudaMallocManaged} (CUDA 4+)
+                \begin{itemize}
+                    \item<4-> Automatic page migration
+                    \item<4-> Up to GeForce 9XX: slow
+                    \item<4-> Starting with GeForce GTX 10XX (CUDA 6+): GPU page faults increase performance
+                \end{itemize}
+                \item Separate address spaces: \CUDA{cudaMalloc}
+                \begin{itemize}
+                    \item<5-> Requires manual \CUDA{cudaMemcpy}
+                \end{itemize}
+                \item<6-> \CUDA{cudaFree} to clean up
+            \end{itemize}
+        \end{block}
+    }
+\end{frame}

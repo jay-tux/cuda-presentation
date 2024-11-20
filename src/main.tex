@@ -1,0 +1,62 @@
+%! Author = jay
+%! Date = 10/25/24
+
+% Preamble
+\documentclass[11pt]{beamer}
+\usetheme{JuanLesPins}
+\usecolortheme{dolphin}
+
+% Packages
+\usepackage{amsmath}
+\usepackage{tikz}
+\usepackage[outputdir=../out]{minted}
+\usepackage{pgfplots}
+\usepackage{pgf}
+\usepackage{lmodern}
+\usepackage{blkarray}
+
+\def\mathdefault#1{#1}
+\everymath=\expandafter{\the\everymath\displaystyle}
+\makeatletter\@ifpackageloaded{underscore}{}{\usepackage[strings]{underscore}
+\usepackage{listings}}\makeatother
+
+\pgfplotsset{compat=1.17}
+\usetikzlibrary{arrows.meta} %define styles in graph
+
+\usepgfplotslibrary{external}
+\tikzexternalize
+
+\setminted{fontsize=\small}
+
+\title{GPU Programming: Rather Feasible}
+
+% Document
+\begin{document}
+    \input{macros}
+
+    \begin{frame}
+        \titlepage
+    \end{frame}
+
+    \begin{frame}{Outline}
+        \tableofcontents
+    \end{frame}
+
+    \input{cuda}
+    \input{rationale}
+    \input{think-gpu}
+    \input{example}
+    \input{extras}
+
+\end{document}
+
+% CUDA???                               CHECK
+% Rationale                             CHECK
+% Getting Started                       CHECK
+% - Basics: host vs device, memory
+% - Thinking in GPUs
+% Example                               CHECK
+% - CPU program
+% - ... conversion
+% - CUDA program
+% Nice to knows/Reference
