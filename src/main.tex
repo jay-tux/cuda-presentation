@@ -5,30 +5,34 @@
 \documentclass[11pt]{beamer}
 \usetheme{JuanLesPins}
 \usecolortheme{dolphin}
+\setbeamertemplate{footline}[frame number]
 
 % Packages
 \usepackage{amsmath}
+\usepackage[dvipsnames]{xcolor}
 \usepackage{tikz}
 \usepackage[outputdir=../out]{minted}
 \usepackage{pgfplots}
 \usepackage{pgf}
 \usepackage{lmodern}
 \usepackage{blkarray}
+\usepackage[absolute,overlay]{textpos}
+
+\pgfplotsset{compat=1.17}
+\usetikzlibrary{arrows.meta, decorations.pathmorphing} %define styles in graph
 
 \def\mathdefault#1{#1}
 \everymath=\expandafter{\the\everymath\displaystyle}
 \makeatletter\@ifpackageloaded{underscore}{}{\usepackage[strings]{underscore}
 \usepackage{listings}}\makeatother
 
-\pgfplotsset{compat=1.17}
-\usetikzlibrary{arrows.meta} %define styles in graph
+\setmintedinline{fontsize=\small}
+\setminted{fontsize=\scriptsize}
 
-\usepgfplotslibrary{external}
-\tikzexternalize
-
-\setminted{fontsize=\small}
-
-\title{GPU Programming: Rather Feasible}
+\title{GPU Acceleration}
+\author{Jonas Sys}
+\institute{Supervisors: Prof. Christophe Scholliers, Prof. Elisa Gonzalez Boix}
+\date{\today}
 
 % Document
 \begin{document}
@@ -42,21 +46,9 @@
         \tableofcontents
     \end{frame}
 
-    \input{cuda}
-    \input{rationale}
-    \input{think-gpu}
-    \input{example}
-    \input{extras}
+    \include{01_gpus}
+    \include{02_cuda_flow}
+    \include{03_example}
+    \include{04_extras}
 
 \end{document}
-
-% CUDA???                               CHECK
-% Rationale                             CHECK
-% Getting Started                       CHECK
-% - Basics: host vs device, memory
-% - Thinking in GPUs
-% Example                               CHECK
-% - CPU program
-% - ... conversion
-% - CUDA program
-% Nice to knows/Reference
