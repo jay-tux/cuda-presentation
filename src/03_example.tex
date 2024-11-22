@@ -121,6 +121,8 @@ cudaMalloc(&c_gpu.data, c.rows * c.cols * sizeof(float));
     \end{minted}
 
     \CUDA{cudaMalloc(void **devPtr, size_t bytes)} allocates \CUDA{bytes} bytes of GPU memory, storing the pointer in \CUDA{devPtr}.
+
+    \reminderImage{\includegraphics[width=\linewidth]{./figures/cuda_flow_memcpy}}
 \end{frame}
 
 \begin{frame}[fragile]{Copy $A$, $B$ to GPU}
@@ -140,6 +142,8 @@ cudaMemcpy(b_gpu.data, b.data, b.rows * b.cols * sizeof(float), cudaMemcpyDefaul
             \item \CUDA{cudaMemcpyDeviceToDevice}: GPU to GPU
         \end{itemize}
     }
+
+    \reminderImage{\includegraphics[width=\linewidth]{./figures/cuda_flow_memcpy}}
 \end{frame}
 
 \begin{frame}[fragile]{Start kernel}
@@ -173,6 +177,8 @@ cudaDeviceSynchronize();
             \item Kernel launches are asynchronous, we use \CUDA{cudaDeviceSynchronize()} to have the CPU wait until the GPU is finished.
         \end{itemize}
     }
+
+    \reminderImage{\includegraphics[width=\linewidth]{./figures/cuda_flow_launch}}
 \end{frame}
 
 \begin{frame}[fragile]{Copy $C$ to CPU}
@@ -182,6 +188,8 @@ cudaMemcpy(c.data, c_gpu.data, c.rows * c.cols * sizeof(float), cudaMemcpyDefaul
 
     Same as before, \CUDA{cudaMemcpy(void *dst, const void *src, size_t size, cudaMemcpyKind kind)} copies data. \\
     Again, \CUDA{cudaMemcpyDefault} is used to infer direction (older systems should use \CUDA{cudaMemcpyDeviceToHost}).
+
+    \reminderImage{\includegraphics[width=\linewidth]{./figures/cuda_flow_memcpy_result}}
 \end{frame}
 
 \begin{frame}[fragile]{Implement kernel}
@@ -207,6 +215,7 @@ __host__ __device__ void dot(matrix a, matrix b, matrix c, int row, int col) {
             \item If we combine \CUDA{__host__ __device__}, we get both
         \end{itemize}
     \end{itemize}
+    \reminderImage{\includegraphics[width=\linewidth]{./figures/cuda_flow_kernel}}
 \end{frame}
 
 \begin{frame}[fragile]{Implement kernel}
@@ -232,6 +241,7 @@ __global__ void matmul_gpu(matrix a, matrix b, matrix c) {
         \item<only@2> These indices can be out of bounds, so we need to check!
         \item<only@3> By making \CUDA{dot} (and \CUDA{matrix::at}) available on the GPU (using \CUDA{__device__}), we can simply re-use the code.
     \end{itemize}
+    \reminderImage{\includegraphics[width=\linewidth]{./figures/cuda_flow_kernel}}
 \end{frame}
 
 \begin{frame}[fragile]{Final code}
