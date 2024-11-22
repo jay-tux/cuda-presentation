@@ -1,4 +1,4 @@
 .idea/
-out
+out/*
 pres_cuda.iml
 !out/main.pdf
